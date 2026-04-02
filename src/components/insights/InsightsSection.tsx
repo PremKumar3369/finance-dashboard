@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useCountUp } from '../../lib/useCountUp';
 import {
   BarChart,
   Bar,
@@ -7,9 +8,14 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
+  Cell,
 } from 'recharts';
+import ChartTooltip from '../ui/ChartTooltip';
 import { TrendingUp, TrendingDown, Award } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+
+// A different color per bar
+const BAR_COLORS = ['#2563eb', '#8b5cf6', '#ec4899', '#f59e0b', '#16a34a', '#06b6d4', '#f97316', '#dc2626'];
 
 export default function InsightsSection() {
   const { transactions } = useFinance();
@@ -69,6 +75,15 @@ export default function InsightsSection() {
       .sort((a, b) => b.amount - a.amount);
   }, [transactions]);
 
+  // Max amount for progress bar widths
+  const maxAmount = categoryData[0]?.amount ?? 1;
+
+  // Count-up animations for card numbers
+  const animatedTopAmount = useCountUp(topCategory?.amount ?? 0, 1000);
+  const animatedCurrentMonth = useCountUp(monthlyComparison.current, 1000);
+  const animatedPrevMonth = useCountUp(monthlyComparison.previous, 1000);
+  const animatedChange = useCountUp(Math.abs(monthlyComparison.change), 800);
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Insights</h2>
@@ -76,18 +91,18 @@ export default function InsightsSection() {
       {/* Insight cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Top spending category */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Award className="w-5 h-5 text-yellow-500" />
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Top Spending Category
-            </span>
+        <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6 border-l-4 border-l-yellow-400 dark:border-l-yellow-400">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Top Spending</span>
+            <div className="p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+              <Award className="w-5 h-5 text-yellow-500" />
+            </div>
           </div>
           {topCategory ? (
             <>
-              <div className="text-xl font-bold">{topCategory.name}</div>
+              <div className="text-2xl font-bold">{topCategory.name}</div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                ${topCategory.amount.toLocaleString()} total spent
+                <span className="font-mono">${animatedTopAmount.toLocaleString()}</span> total spent
               </div>
             </>
           ) : (
@@ -96,40 +111,33 @@ export default function InsightsSection() {
         </div>
 
         {/* Current month spending */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingDown className="w-5 h-5 text-red-500" />
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              This Month's Expenses
-            </span>
+        <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6 border-l-4 border-l-red-400 dark:border-l-red-400">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">This Month</span>
+            <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
+              <TrendingDown className="w-5 h-5 text-red-500" />
+            </div>
           </div>
-          <div className="text-xl font-bold">${monthlyComparison.current.toLocaleString()}</div>
+          <div className="text-2xl font-bold font-mono">${animatedCurrentMonth.toLocaleString()}</div>
           <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            vs ${monthlyComparison.previous.toLocaleString()} last month
+            vs <span className="font-mono">${animatedPrevMonth.toLocaleString()}</span> last month
           </div>
         </div>
 
         {/* Month-over-month change */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-          <div className="flex items-center gap-2 mb-3">
-            {monthlyComparison.change <= 0 ? (
-              <TrendingDown className="w-5 h-5 text-green-500" />
-            ) : (
-              <TrendingUp className="w-5 h-5 text-red-500" />
-            )}
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Month-over-Month
-            </span>
+        <div className={`bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Month-over-Month</span>
+            <div className={`p-2 rounded-lg ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+              {monthlyComparison.change <= 0 ? (
+                <TrendingDown className="w-5 h-5 text-green-500" />
+              ) : (
+                <TrendingUp className="w-5 h-5 text-red-500" />
+              )}
+            </div>
           </div>
-          <div
-            className={`text-xl font-bold ${
-              monthlyComparison.change <= 0
-                ? 'text-green-600 dark:text-green-400'
-                : 'text-red-600 dark:text-red-400'
-            }`}
-          >
-            {monthlyComparison.change > 0 ? '+' : ''}
-            {monthlyComparison.change.toFixed(1)}%
+          <div className={`text-2xl font-bold font-mono ${monthlyComparison.change <= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+            {monthlyComparison.change > 0 ? '+' : '-'}{animatedChange.toFixed(1)}%
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {monthlyComparison.change <= 0 ? 'Spending decreased' : 'Spending increased'}
@@ -137,18 +145,54 @@ export default function InsightsSection() {
         </div>
       </div>
 
-      {/* Category bar chart */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-lg font-semibold mb-4">Spending by Category</h3>
+      {/* Category bar chart with gradient bars */}
+      <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+        <h3 className="text-lg font-semibold mb-6">Spending by Category</h3>
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={categoryData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-            <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
-            <YAxis stroke="#6b7280" fontSize={12} />
-            <Tooltip formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Amount']} />
-            <Bar dataKey="amount" fill="#2563eb" radius={[4, 4, 0, 0]} />
+          <BarChart data={categoryData} barSize={36}>
+            <defs>
+              {BAR_COLORS.map((color, index) => (
+                <linearGradient key={index} id={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={color} stopOpacity={1} />
+                  <stop offset="100%" stopColor={color} stopOpacity={0.5} />
+                </linearGradient>
+              ))}
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
+            <XAxis dataKey="name" stroke="#6b7280" fontSize={12} axisLine={false} tickLine={false} />
+            <YAxis stroke="#6b7280" fontSize={12} axisLine={false} tickLine={false} />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+            <Bar dataKey="amount" radius={[6, 6, 0, 0]} isAnimationActive={true} animationDuration={800} animationEasing="ease-out">
+              {categoryData.map((_, index) => (
+                <Cell key={index} fill={`url(#gradient-${index % BAR_COLORS.length})`} />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
+      </div>
+
+      {/* Category progress bars */}
+      <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+        <h3 className="text-lg font-semibold mb-5">Category Breakdown</h3>
+        <div className="space-y-4">
+          {categoryData.map((cat, index) => (
+            <div key={cat.name}>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-sm font-medium">{cat.name}</span>
+                <span className="text-sm font-semibold font-mono">${cat.amount.toLocaleString()}</span>
+              </div>
+              <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-700 ease-out"
+                  style={{
+                    width: `${(cat.amount / maxAmount) * 100}%`,
+                    backgroundColor: BAR_COLORS[index % BAR_COLORS.length],
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -85,7 +85,7 @@ export default function TransactionModal({ isOpen, onClose, transaction }: Modal
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 mx-4">
+      <div className="relative bg-slate-50 dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 mx-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">
             {transaction ? 'Edit Transaction' : 'Add Transaction'}

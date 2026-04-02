@@ -29,7 +29,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose }: Sid
 
       <aside
         className={cn(
-          'fixed lg:static z-50 top-0 left-0 h-full w-60 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-transform duration-200 lg:translate-x-0',
+          'fixed lg:static z-50 top-0 left-0 h-full w-60 border-r border-gray-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 p-4 transition-transform duration-200 lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >

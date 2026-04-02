@@ -2,25 +2,40 @@ import { Pencil, Trash2 } from 'lucide-react';
 import type { Transaction } from '../../types';
 import { useFinance } from '../../context/FinanceContext';
 import { cn } from '../../lib/utils';
+import EmptyState from '../ui/EmptyState';
 
 interface TableProps {
   transactions: Transaction[];
   onEdit: (transaction: Transaction) => void;
+  onAdd?: () => void;
 }
 
-export default function TransactionTable({ transactions, onEdit }: TableProps) {
-  const { role, deleteTransaction } = useFinance();
+export default function TransactionTable({ transactions, onEdit, onAdd }: TableProps) {
+  const { role, deleteTransaction, transactions: allTransactions } = useFinance();
+
+  if (allTransactions.length === 0) {
+    return (
+      <EmptyState
+        type="no-data"
+        title="No transactions yet"
+        description="Start tracking your finances by adding your first transaction."
+        action={role === 'admin' ? { label: 'Add First Transaction', onClick: () => onAdd?.() } : undefined}
+      />
+    );
+  }
 
   if (transactions.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-        No transactions found. Try adjusting your filters.
-      </div>
+      <EmptyState
+        type="no-results"
+        title="No transactions found"
+        description="Try adjusting your search or filters to see different results."
+      />
     );
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto overflow-y-hidden">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
@@ -38,9 +53,9 @@ export default function TransactionTable({ transactions, onEdit }: TableProps) {
           {transactions.map((t) => (
             <tr
               key={t.id}
-              className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+              className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150"
             >
-              <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
+              <td className="py-3 px-4 text-gray-600 dark:text-gray-300 font-mono text-xs">
                 {new Date(t.date).toLocaleDateString()}
               </td>
               <td className="py-3 px-4">{t.description}</td>
@@ -69,7 +84,7 @@ export default function TransactionTable({ transactions, onEdit }: TableProps) {
                     : 'text-red-600 dark:text-red-400'
                 )}
               >
-                {t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString()}
+                <span className="font-mono">{t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString()}</span>
               </td>
               {role === 'admin' && (
                 <td className="py-3 px-4 text-right">

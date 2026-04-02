@@ -2,9 +2,11 @@ import { useState, useMemo } from 'react';
 import { Plus } from 'lucide-react';
 
 import { FinanceProvider, useFinance } from './context/FinanceContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import MainLayout from './components/layout/MainLayout';
 import type { TabId } from './components/layout/Sidebar';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import ShortcutsHelpModal from './components/ui/ShortcutsHelpModal';
 
 import SummaryCards from './components/dashboard/SummaryCards';
 import BalanceTrendChart from './components/dashboard/BalanceTrendChart';
@@ -21,7 +23,9 @@ import type { FilterState, Transaction } from './types';
 // Inner component so it can access context hooks
 function AppContent() {
   const [activeTab, setActiveTab] = useState<TabId>('dashboard');
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const { transactions, role } = useFinance();
+  const { toggleTheme } = useTheme();
 
   // Filter state for transactions tab
   const [filters, setFilters] = useState<FilterState>({
@@ -68,11 +72,22 @@ function AppContent() {
     setModalOpen(true);
   };
 
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    { key: 'k', meta: true, handler: () => { if (role === 'admin') openAddModal(); } },
+    { key: 'd', meta: true, handler: toggleTheme },
+    { key: '1', handler: () => setActiveTab('dashboard') },
+    { key: '2', handler: () => setActiveTab('transactions') },
+    { key: '3', handler: () => setActiveTab('insights') },
+    { key: '?', shift: true, handler: () => setShortcutsOpen((prev) => !prev) },
+    { key: 'Escape', handler: () => { setModalOpen(false); setShortcutsOpen(false); } },
+  ]);
+
   return (
-    <MainLayout activeTab={activeTab} onTabChange={setActiveTab}>
+    <MainLayout activeTab={activeTab} onTabChange={setActiveTab} onShortcutsOpen={() => setShortcutsOpen(true)}>
       {/* Dashboard Tab */}
       {activeTab === 'dashboard' && (
-        <div className="space-y-6">
+        <div key="dashboard" className="tab-content space-y-6">
           <h2 className="text-2xl font-bold">Dashboard</h2>
           <SummaryCards />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -84,7 +99,7 @@ function AppContent() {
 
       {/* Transactions Tab */}
       {activeTab === 'transactions' && (
-        <div className="space-y-6">
+        <div key="transactions" className="tab-content space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">Transactions</h2>
             {role === 'admin' && (
@@ -98,10 +113,10 @@ function AppContent() {
             )}
           </div>
 
-          <TransactionFilters filters={filters} onChange={setFilters} />
+          <TransactionFilters filters={filters} onChange={setFilters} filteredTransactions={filteredTransactions} />
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-            <TransactionTable transactions={filteredTransactions} onEdit={openEditModal} />
+          <div className="bg-slate-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            <TransactionTable transactions={filteredTransactions} onEdit={openEditModal} onAdd={openAddModal} />
           </div>
 
           <TransactionModal
@@ -113,7 +128,13 @@ function AppContent() {
       )}
 
       {/* Insights Tab */}
-      {activeTab === 'insights' && <InsightsSection />}
+      {activeTab === 'insights' && (
+        <div key="insights" className="tab-content">
+          <InsightsSection />
+        </div>
+      )}
+
+      {shortcutsOpen && <ShortcutsHelpModal onClose={() => setShortcutsOpen(false)} />}
     </MainLayout>
   );
 }
