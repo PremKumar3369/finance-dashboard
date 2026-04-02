@@ -4,6 +4,14 @@
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Zorvyn brand colors */
+  --color-zorvyn-bg:     #080c16;
+  --color-zorvyn-card:   #0b111e;
+  --color-zorvyn-blue:   #427cf0;
+  --color-zorvyn-green:  #22c38e;
+  --color-zorvyn-purple: #855cd6;
+  --color-zorvyn-muted:  #9da3af;
 }
 
 @keyframes slide-up-fade {

@@ -45,8 +45,8 @@ function FilterDropdown({ icon: Icon, label, value, options, onSelect, active }:
         onClick={() => setOpen((p) => !p)}
         className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium transition-all duration-150 shadow-sm
           ${active
-            ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-400 dark:border-blue-500 text-blue-600 dark:text-blue-400'
-            : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+            ? 'bg-blue-50 dark:bg-zorvyn-blue/10 border-blue-400 dark:border-zorvyn-blue/50 text-blue-600 dark:text-zorvyn-blue'
+            : 'bg-white dark:bg-[#ffffff0d] border-gray-200 dark:border-[#ffffff1a] text-gray-700 dark:text-gray-200 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20'
           }`}
       >
         <Icon className="w-4 h-4" />
@@ -56,7 +56,7 @@ function FilterDropdown({ icon: Icon, label, value, options, onSelect, active }:
 
       {/* Panel */}
       <div
-        className={`absolute left-0 mt-2 min-w-[170px] bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top
+        className={`absolute left-0 mt-2 min-w-[170px] bg-white dark:bg-zorvyn-card border border-gray-200 dark:border-[#ffffff1a] rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top
           ${open ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-1 pointer-events-none'}`}
       >
         {options.map((opt) => (
@@ -65,8 +65,8 @@ function FilterDropdown({ icon: Icon, label, value, options, onSelect, active }:
             onClick={() => { onSelect(opt.value); setOpen(false); }}
             className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors
               ${opt.value === value
-                ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600'
+                ? 'bg-blue-50 dark:bg-zorvyn-blue/10 text-blue-600 dark:text-zorvyn-blue'
+                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#ffffff1a]'
               }`}
           >
             <span>{opt.label}</span>
@@ -145,7 +145,7 @@ export default function TransactionFilters({ filters, onChange, filteredTransact
           placeholder="Search transactions..."
           value={filters.searchQuery}
           onChange={(e) => onChange({ ...filters, searchQuery: e.target.value })}
-          className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-[#ffffff1a] bg-white dark:bg-[#ffffff0d] text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         />
       </div>
 
@@ -187,7 +187,7 @@ export default function TransactionFilters({ filters, onChange, filteredTransact
         <button
           onClick={() => setExportOpen((p) => !p)}
           disabled={disabled}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-zorvyn-blue text-white text-sm font-medium hover:bg-zorvyn-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
         >
           <Download className="w-4 h-4" />
           Export
@@ -195,14 +195,14 @@ export default function TransactionFilters({ filters, onChange, filteredTransact
         </button>
 
         <div
-          className={`absolute right-0 mt-2 w-52 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top
+          className={`absolute right-0 mt-2 w-52 bg-white dark:bg-zorvyn-card border border-gray-200 dark:border-[#ffffff1a] rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top
             ${exportOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-1 pointer-events-none'}`}
         >
           {exportOptions.map((opt) => (
             <button
               key={opt.type}
               onClick={() => handleExport(opt.type)}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-200"
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-[#ffffff1a] transition-colors text-gray-700 dark:text-gray-200"
             >
               <opt.icon className="w-4 h-4 text-blue-500" />
               <div className="text-left">

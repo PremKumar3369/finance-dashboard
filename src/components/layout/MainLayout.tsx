@@ -15,7 +15,7 @@ export default function MainLayout({ activeTab, onTabChange, onShortcutsOpen, ch
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <div className="min-h-screen bg-slate-100 dark:bg-zorvyn-bg text-gray-900 dark:text-gray-50">
       <Header onMenuToggle={() => setSidebarOpen(true)} onShortcutsOpen={onShortcutsOpen} />
       <div className="flex min-h-[calc(100vh-4rem)]">
         <Sidebar

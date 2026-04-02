@@ -38,7 +38,7 @@ export default function TransactionTable({ transactions, onEdit, onAdd }: TableP
     <div className="overflow-x-auto overflow-y-hidden">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+          <tr className="border-b border-gray-200 dark:border-[#ffffff1a] bg-gray-50 dark:bg-zorvyn-card/50">
             <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400">Date</th>
             <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400">Description</th>
             <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400">Category</th>
@@ -53,14 +53,14 @@ export default function TransactionTable({ transactions, onEdit, onAdd }: TableP
           {transactions.map((t) => (
             <tr
               key={t.id}
-              className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150"
+              className="border-b border-gray-100 dark:border-[#ffffff1a]/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150"
             >
               <td className="py-3 px-4 text-gray-600 dark:text-gray-300 font-mono text-xs">
                 {new Date(t.date).toLocaleDateString()}
               </td>
               <td className="py-3 px-4">{t.description}</td>
               <td className="py-3 px-4">
-                <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-zorvyn-blue/10 text-gray-700 dark:text-zorvyn-blue border border-transparent dark:border-zorvyn-blue/20">
                   {t.category}
                 </span>
               </td>
@@ -69,8 +69,8 @@ export default function TransactionTable({ transactions, onEdit, onAdd }: TableP
                   className={cn(
                     'px-2 py-1 rounded-full text-xs font-medium',
                     t.type === 'income'
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                      : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                      ? 'bg-green-100 dark:bg-zorvyn-green/10 text-green-700 dark:text-zorvyn-green border border-transparent dark:border-zorvyn-green/20'
+                      : 'bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-transparent dark:border-red-500/20'
                   )}
                 >
                   {t.type}
@@ -80,7 +80,7 @@ export default function TransactionTable({ transactions, onEdit, onAdd }: TableP
                 className={cn(
                   'py-3 px-4 text-right font-medium',
                   t.type === 'income'
-                    ? 'text-green-600 dark:text-green-400'
+                    ? 'text-green-600 dark:text-zorvyn-green'
                     : 'text-red-600 dark:text-red-400'
                 )}
               >

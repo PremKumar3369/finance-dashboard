@@ -29,14 +29,14 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose }: Sid
 
       <aside
         className={cn(
-          'fixed lg:static z-50 top-0 left-0 h-full w-60 border-r border-gray-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 p-4 transition-transform duration-200 lg:translate-x-0',
+          'fixed lg:static z-50 top-0 left-0 h-full w-60 border-r border-gray-200 dark:border-[#ffffff1a] bg-slate-50 dark:bg-zorvyn-card p-4 transition-transform duration-200 lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex justify-end lg:hidden mb-2">
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            className="p-1 hover:bg-gray-100 dark:hover:bg-[#ffffff0d] rounded"
           >
             <X className="w-5 h-5" />
           </button>
@@ -53,8 +53,8 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose }: Sid
               className={cn(
                 'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
                 activeTab === tab.id
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'bg-blue-50 dark:bg-zorvyn-blue/10 text-blue-600 dark:text-zorvyn-blue'
+                  : 'text-gray-600 dark:text-zorvyn-muted hover:bg-gray-100 dark:hover:bg-[#ffffff0d]'
               )}
             >
               <tab.icon className="w-5 h-5" />

@@ -91,17 +91,17 @@ export default function InsightsSection() {
       {/* Insight cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Top spending category */}
-        <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6 border-l-4 border-l-yellow-400 dark:border-l-yellow-400">
+        <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-yellow-400 dark:border-l-yellow-400">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Top Spending</span>
-            <div className="p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+            <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">Top Spending</span>
+            <div className="p-2 rounded-lg bg-yellow-50 dark:bg-[#427cf0]/10">
               <Award className="w-5 h-5 text-yellow-500" />
             </div>
           </div>
           {topCategory ? (
             <>
               <div className="text-2xl font-bold">{topCategory.name}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <div className="text-sm text-gray-500 dark:text-zorvyn-muted mt-1">
                 <span className="font-mono">${animatedTopAmount.toLocaleString()}</span> total spent
               </div>
             </>
@@ -111,24 +111,24 @@ export default function InsightsSection() {
         </div>
 
         {/* Current month spending */}
-        <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6 border-l-4 border-l-red-400 dark:border-l-red-400">
+        <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-red-400 dark:border-l-red-400">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">This Month</span>
+            <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">This Month</span>
             <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
               <TrendingDown className="w-5 h-5 text-red-500" />
             </div>
           </div>
           <div className="text-2xl font-bold font-mono">${animatedCurrentMonth.toLocaleString()}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <div className="text-sm text-gray-500 dark:text-zorvyn-muted mt-1">
             vs <span className="font-mono">${animatedPrevMonth.toLocaleString()}</span> last month
           </div>
         </div>
 
         {/* Month-over-month change */}
-        <div className={`bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
+        <div className={`bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Month-over-Month</span>
-            <div className={`p-2 rounded-lg ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+            <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">Month-over-Month</span>
+            <div className={`p-2 rounded-lg ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-zorvyn-green/10' : 'bg-red-50 dark:bg-red-900/20'}`}>
               {monthlyComparison.change <= 0 ? (
                 <TrendingDown className="w-5 h-5 text-green-500" />
               ) : (
@@ -136,17 +136,17 @@ export default function InsightsSection() {
               )}
             </div>
           </div>
-          <div className={`text-2xl font-bold font-mono ${monthlyComparison.change <= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+          <div className={`text-2xl font-bold font-mono ${monthlyComparison.change <= 0 ? 'text-green-600 dark:text-zorvyn-green' : 'text-red-600 dark:text-red-400'}`}>
             {monthlyComparison.change > 0 ? '+' : '-'}{animatedChange.toFixed(1)}%
           </div>
-          <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <div className="text-sm text-gray-500 dark:text-zorvyn-muted mt-1">
             {monthlyComparison.change <= 0 ? 'Spending decreased' : 'Spending increased'}
           </div>
         </div>
       </div>
 
       {/* Category bar chart with gradient bars */}
-      <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+      <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6">
         <h3 className="text-lg font-semibold mb-6">Spending by Category</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={categoryData} barSize={36}>
@@ -172,7 +172,7 @@ export default function InsightsSection() {
       </div>
 
       {/* Category progress bars */}
-      <div className="bg-slate-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+      <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6">
         <h3 className="text-lg font-semibold mb-5">Category Breakdown</h3>
         <div className="space-y-4">
           {categoryData.map((cat, index) => (

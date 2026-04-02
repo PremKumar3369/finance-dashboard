@@ -36,7 +36,7 @@ export default function SpendingBreakdownChart() {
   }, [transactions]);
 
   return (
-    <div className="bg-slate-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+    <div className="bg-slate-50 dark:bg-zorvyn-card rounded-lg border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6">
       <h3 className="text-lg font-semibold mb-4">Spending Breakdown</h3>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>

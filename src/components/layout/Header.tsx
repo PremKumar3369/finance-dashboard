@@ -34,7 +34,7 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
   }, []);
 
   return (
-    <header className="h-16 border-b border-gray-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 flex items-center justify-between px-6 sticky top-0 z-10">
+    <header className="h-16 border-b border-gray-200 dark:border-[#ffffff1a] bg-slate-50 dark:bg-zorvyn-card flex items-center justify-between px-6 sticky top-0 z-10">
       <div className="flex items-center gap-2">
         <button
           onClick={onMenuToggle}
@@ -45,8 +45,8 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <Wallet className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-        <span className="text-xl font-bold">FinDash</span>
+        <Wallet className="w-6 h-6 text-blue-600 dark:text-zorvyn-blue" />
+        <span className="text-xl font-bold dark:bg-gradient-to-r dark:from-zorvyn-green dark:to-zorvyn-blue dark:bg-clip-text dark:text-transparent">FinDash</span>
       </div>
 
       <div className="flex items-center gap-4">
@@ -54,9 +54,9 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm font-medium shadow-sm"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#ffffff1a] bg-white dark:bg-[#ffffff0d] hover:bg-gray-50 dark:hover:bg-[#ffffff1a] transition-colors text-sm font-medium shadow-sm"
           >
-            <current.icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <current.icon className="w-4 h-4 text-blue-600 dark:text-zorvyn-blue" />
             <span>{current.label}</span>
             <ChevronDown
               className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -65,7 +65,7 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
 
           {/* Dropdown panel */}
           <div
-            className={`absolute right-0 mt-2 w-44 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg overflow-hidden transition-all duration-200 origin-top ${
+            className={`absolute right-0 mt-2 w-44 bg-white dark:bg-zorvyn-card border border-gray-200 dark:border-[#ffffff1a] rounded-xl shadow-lg overflow-hidden transition-all duration-200 origin-top ${
               open ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-1 pointer-events-none'
             }`}
           >
@@ -76,8 +76,8 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
                   setRole(r.value);
                   setOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-gray-50 dark:hover:bg-gray-600 ${
-                  role === r.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'
+                className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-gray-50 dark:hover:bg-[#ffffff0d] ${
+                  role === r.value ? 'bg-blue-50 dark:bg-zorvyn-blue/10 text-blue-600 dark:text-zorvyn-blue' : 'text-gray-700 dark:text-gray-200'
                 }`}
               >
                 <r.icon className="w-4 h-4" />

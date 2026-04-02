@@ -105,7 +105,7 @@ function AppContent() {
             {role === 'admin' && (
               <button
                 onClick={openAddModal}
-                className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-md bg-zorvyn-blue text-white text-sm font-medium hover:bg-zorvyn-blue/90 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Add Transaction
@@ -115,7 +115,7 @@ function AppContent() {
 
           <TransactionFilters filters={filters} onChange={setFilters} filteredTransactions={filteredTransactions} />
 
-          <div className="bg-slate-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+          <div className="bg-slate-50 dark:bg-zorvyn-card rounded-lg border border-gray-200 dark:border-[#ffffff1a] shadow-sm">
             <TransactionTable transactions={filteredTransactions} onEdit={openEditModal} onAdd={openAddModal} />
           </div>
 

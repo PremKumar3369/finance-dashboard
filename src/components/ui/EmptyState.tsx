@@ -16,8 +16,8 @@ export default function EmptyState({ title, description, type = 'no-data', actio
       <div className="mb-5 opacity-80">
         <EmptyStateIllustration type={type} />
       </div>
-      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">{title}</h3>
-      <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs mb-5">{description}</p>
+      <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-1">{title}</h3>
+      <p className="text-sm text-gray-500 dark:text-zorvyn-muted max-w-xs mb-5">{description}</p>
       {action && (
         <button
           onClick={action.onClick}
