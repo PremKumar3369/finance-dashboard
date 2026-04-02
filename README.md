@@ -51,6 +51,10 @@ src/
 └── App.tsx           # Root component + tab routing
 ```
 
+## Live Demo
+
+https://finance-dashboard-two-weld.vercel.app
+
 ## Author
 
 Prem Kumar — Frontend Developer
