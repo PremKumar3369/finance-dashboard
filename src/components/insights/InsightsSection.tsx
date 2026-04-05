@@ -91,10 +91,10 @@ export default function InsightsSection() {
       {/* Insight cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Top spending category */}
-        <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-yellow-400 dark:border-l-yellow-400">
+        <div className="group bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-yellow-400 dark:border-l-yellow-400 hover:scale-[1.03] hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">Top Spending</span>
-            <div className="p-2 rounded-lg bg-yellow-50 dark:bg-[#427cf0]/10">
+            <div className="p-2 rounded-lg bg-yellow-50 dark:bg-[#427cf0]/10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
               <Award className="w-5 h-5 text-yellow-500" />
             </div>
           </div>
@@ -111,10 +111,10 @@ export default function InsightsSection() {
         </div>
 
         {/* Current month spending */}
-        <div className="bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-red-400 dark:border-l-red-400">
+        <div className="group bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 border-l-red-400 dark:border-l-red-400 hover:scale-[1.03] hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">This Month</span>
-            <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
+            <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
               <TrendingDown className="w-5 h-5 text-red-500" />
             </div>
           </div>
@@ -125,10 +125,10 @@ export default function InsightsSection() {
         </div>
 
         {/* Month-over-month change */}
-        <div className={`bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
+        <div className={`group bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 hover:scale-[1.03] hover:shadow-lg transition-all duration-300 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">Month-over-Month</span>
-            <div className={`p-2 rounded-lg ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-zorvyn-green/10' : 'bg-red-50 dark:bg-red-900/20'}`}>
+            <div className={`p-2 rounded-lg group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-zorvyn-green/10' : 'bg-red-50 dark:bg-red-900/20'}`}>
               {monthlyComparison.change <= 0 ? (
                 <TrendingDown className="w-5 h-5 text-green-500" />
               ) : (
