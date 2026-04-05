@@ -195,7 +195,7 @@ export default function TransactionFilters({ filters, onChange, filteredTransact
         </button>
 
         <div
-          className={`absolute right-0 mt-2 w-52 bg-white dark:bg-zorvyn-card border border-gray-200 dark:border-[#ffffff1a] rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top
+          className={`absolute right-0 mt-2 w-52 bg-white dark:bg-zorvyn-card border border-gray-200 dark:border-[#ffffff1a] rounded-xl shadow-xl overflow-hidden z-30 transition-all duration-200 origin-top max-sm:right-auto max-sm:left-0
             ${exportOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-1 pointer-events-none'}`}
         >
           {exportOptions.map((opt) => (

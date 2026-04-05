@@ -125,7 +125,7 @@ export default function InsightsSection() {
         </div>
 
         {/* Month-over-month change */}
-        <div className={`bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
+        <div className={`bg-slate-50 dark:bg-zorvyn-card rounded-xl border border-gray-200 dark:border-[#ffffff1a] shadow-sm p-6 border-l-4 ${monthlyComparison.change <= 0 ? 'border-l-green-400 dark:border-l-green-400' : 'border-l-red-400 dark:border-l-red-400'}`}>
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-medium text-gray-500 dark:text-zorvyn-muted">Month-over-Month</span>
             <div className={`p-2 rounded-lg ${monthlyComparison.change <= 0 ? 'bg-green-50 dark:bg-zorvyn-green/10' : 'bg-red-50 dark:bg-red-900/20'}`}>

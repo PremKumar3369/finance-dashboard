@@ -28,3 +28,26 @@
 .tab-content {
   animation: slide-up-fade 0.25s ease-out;
 }
+
+/* Modal animations */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-backdrop-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes modal-slide-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes modal-slide-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(24px) scale(0.95); }
+}
+
+.modal-backdrop-enter { animation: modal-backdrop-in 0.2s ease-out forwards; }
+.modal-backdrop-exit { animation: modal-backdrop-out 0.15s ease-in forwards; }
+.modal-panel-enter { animation: modal-slide-in 0.25s ease-out forwards; }
+.modal-panel-exit { animation: modal-slide-out 0.15s ease-in forwards; }

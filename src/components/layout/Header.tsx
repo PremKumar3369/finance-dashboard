@@ -49,17 +49,17 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
         <span className="text-xl font-bold dark:bg-gradient-to-r dark:from-zorvyn-green dark:to-zorvyn-blue dark:bg-clip-text dark:text-transparent">FinDash</span>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         {/* Animated role dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#ffffff1a] bg-white dark:bg-[#ffffff0d] hover:bg-gray-50 dark:hover:bg-[#ffffff1a] transition-colors text-sm font-medium shadow-sm"
+            className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#ffffff1a] bg-white dark:bg-[#ffffff0d] hover:bg-gray-50 dark:hover:bg-[#ffffff1a] transition-colors text-sm font-medium shadow-sm"
           >
             <current.icon className="w-4 h-4 text-blue-600 dark:text-zorvyn-blue" />
-            <span>{current.label}</span>
+            <span className="hidden sm:inline">{current.label}</span>
             <ChevronDown
-              className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+              className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
             />
           </button>
 
@@ -93,10 +93,10 @@ export default function Header({ onMenuToggle, onShortcutsOpen }: HeaderProps) {
           </div>
         </div>
 
-        {/* Keyboard shortcuts button */}
+        {/* Keyboard shortcuts button — hidden on mobile */}
         <button
           onClick={onShortcutsOpen}
-          className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="hidden sm:flex p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           aria-label="Keyboard shortcuts"
           title="Keyboard shortcuts (Shift + ?)"
         >

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { X } from 'lucide-react';
 import type { Transaction } from '../../types';
 import { useFinance } from '../../context/FinanceContext';
@@ -21,6 +21,26 @@ export default function TransactionModal({ isOpen, onClose, transaction }: Modal
   });
 
   const [error, setError] = useState('');
+
+  // Controls whether the component is mounted at all
+  const [mounted, setMounted] = useState(false);
+  // Controls whether we're animating in or out
+  const [animating, setAnimating] = useState<'enter' | 'exit' | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMounted(true);
+      // Small delay so the DOM renders before animation starts
+      requestAnimationFrame(() => setAnimating('enter'));
+    } else if (mounted) {
+      setAnimating('exit');
+      const timer = setTimeout(() => {
+        setMounted(false);
+        setAnimating(null);
+      }, 150); // match exit animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   // Reset / populate form when modal opens
   useEffect(() => {
@@ -77,15 +97,20 @@ export default function TransactionModal({ isOpen, onClose, transaction }: Modal
     onClose();
   };
 
-  if (!isOpen) return null;
+  if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div
+        className={`absolute inset-0 bg-black/50 ${animating === 'enter' ? 'modal-backdrop-enter' : animating === 'exit' ? 'modal-backdrop-exit' : ''}`}
+        onClick={onClose}
+      />
 
       {/* Modal */}
-      <div className="relative bg-slate-50 dark:bg-zorvyn-card rounded-lg shadow-xl w-full max-w-md p-6 mx-4">
+      <div
+        className={`relative bg-slate-50 dark:bg-zorvyn-card rounded-lg shadow-xl w-full max-w-md p-6 mx-4 ${animating === 'enter' ? 'modal-panel-enter' : animating === 'exit' ? 'modal-panel-exit' : ''}`}
+      >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">
             {transaction ? 'Edit Transaction' : 'Add Transaction'}
